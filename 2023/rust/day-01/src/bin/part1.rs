@@ -17,7 +17,9 @@ fn part1(input: &str) -> String {
                 last_number = Some(c);
             }
         }
-        final_number += (first_number.unwrap().to_string() + &last_number.unwrap().to_string()).parse::<u128>().unwrap();
+        final_number += (first_number.unwrap().to_string() + &last_number.unwrap().to_string())
+            .parse::<u128>()
+            .unwrap();
         first_number = None;
     }
     final_number.to_string()
@@ -29,8 +31,7 @@ mod tests {
 
     #[test]
     fn it_works() {
-        let test_case = 
-            "1abc2
+        let test_case = "1abc2
             pqr3stu8vwx
             a1b2c3d4e5f
             treb7uchet";
