@@ -4,10 +4,11 @@ fn main() {
     dbg!(output);
 }
 
-const CARDS: [&str; 13] = ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"];
+const CARDS: [&str; 13] = [
+    "A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2",
+];
 
 fn part1(input: &str) -> u32 {
-
     let mut five_of_a_kind = vec![];
     let mut four_of_a_kind = vec![];
     let mut full_house = vec![];
@@ -45,27 +46,21 @@ fn part1(input: &str) -> u32 {
         }
         if largest_card_count == 5 {
             five_of_a_kind.push(*hand);
-        }
-        else if largest_card_count == 4 {
+        } else if largest_card_count == 4 {
             four_of_a_kind.push(*hand);
-        }
-        else if largest_card_count == 3 {
+        } else if largest_card_count == 3 {
             if second_pair {
                 full_house.push(*hand);
-            }
-            else {
+            } else {
                 three_of_a_kind.push(*hand);
             }
-        }
-        else if largest_card_count == 2 {
+        } else if largest_card_count == 2 {
             if second_pair {
                 two_pair.push(*hand);
-            }
-            else {
+            } else {
                 one_pair.push(*hand);
             }
-        }
-        else {
+        } else {
             high_card.push(*hand);
         }
     }
@@ -92,7 +87,16 @@ fn part1(input: &str) -> u32 {
     let sorted_high_card = sort(high_card);
     // dbg!(&sorted_high_card);
 
-    let whole_list = [sorted_high_card, sorted_one_pair, sorted_two_pair, sorted_three_of_a_kind, sorted_full_house, sorted_four_of_a_kind, sorted_five_of_a_kind].concat();
+    let whole_list = [
+        sorted_high_card,
+        sorted_one_pair,
+        sorted_two_pair,
+        sorted_three_of_a_kind,
+        sorted_full_house,
+        sorted_four_of_a_kind,
+        sorted_five_of_a_kind,
+    ]
+    .concat();
     // dbg!(&whole_list);
     let mut bid_sum = 0;
     for (i, hand1) in whole_list.iter().enumerate() {
@@ -100,7 +104,7 @@ fn part1(input: &str) -> u32 {
         for (hand, value) in &hand_bid_pairs {
             // dbg!(&hand);
             if hand1 == hand {
-                bid_sum += value * ((i+1) as u32);
+                bid_sum += value * ((i + 1) as u32);
                 // dbg!(bid_sum);
             }
         }
@@ -113,12 +117,11 @@ fn sort(mut hands: Vec<&str>) -> Vec<&str> {
     for i in 0..len {
         for j in i..len {
             for k in 0..5 {
-                let char_rank_1 = 13-search_char(hands[i], k);
-                let char_rank_2 = 13-search_char(hands[j], k);
+                let char_rank_1 = 13 - search_char(hands[i], k);
+                let char_rank_2 = 13 - search_char(hands[j], k);
                 if char_rank_1 < char_rank_2 {
                     break;
-                }
-                else if char_rank_1 > char_rank_2 {
+                } else if char_rank_1 > char_rank_2 {
                     let tmp = hands[i];
                     hands[i] = hands[j];
                     hands[j] = tmp;
@@ -133,7 +136,7 @@ fn sort(mut hands: Vec<&str>) -> Vec<&str> {
 fn search_char(hand: &str, counter: usize) -> usize {
     let mut c_pos = std::usize::MAX;
     for i in 0..13 {
-        if &hand[counter..counter+1] == CARDS[i] {
+        if &hand[counter..counter + 1] == CARDS[i] {
             c_pos = i;
         }
     }

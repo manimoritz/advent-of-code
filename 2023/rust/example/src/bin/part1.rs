@@ -1,5 +1,5 @@
 fn main() {
-    let input = include_str!("./input1.txt");
+    let input = include_str!("./input.txt");
     let output = part1(input);
     dbg!(output);
 }
@@ -13,7 +13,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn it_works() {
+    fn test1() {
         let test_case = "8";
         let result = part1(test_case);
         assert_eq!(result, 8u32);
