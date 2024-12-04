@@ -4,7 +4,7 @@ fn main() {
     dbg!(output);
 }
 
-fn part1(_input: &str) -> u32 {
+fn part1(_input: &str) -> i32 {
     todo!();
 }
 
@@ -16,6 +16,6 @@ mod tests {
     fn test1() {
         let test_case = "8";
         let result = part1(test_case);
-        assert_eq!(result, 8u32);
+        assert_eq!(result, 8i32);
     }
 }
