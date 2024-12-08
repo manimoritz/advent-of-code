@@ -1,3 +1,8 @@
+#![deny(clippy::unwrap_used)]
+#![deny(clippy::expect_used)]
+#![deny(clippy::panic)]
+#![deny(unused_must_use)]
+
 fn main() {
     let input = include_str!("./input.txt");
     let output = part1(input);
@@ -58,37 +63,33 @@ fn part1(input: &str) -> i32 {
     let mut result = 0;
 
     // Count all the fields with antinodes
-    for i in 0..matrix.len() {
-        for j in 0..matrix[i].len() {
-            if matrix[i][j].1 {
+    for row in matrix.iter() {
+        for element in row.iter() {
+            if element.1 {
                 result += 1;
             }
         }
     }
-    return result;
+    result
 }
 
-fn search_for_pairs(
-    matrix: &Vec<Vec<(char, bool)>>,
-    o_i: usize,
-    o_j: usize,
-) -> Vec<(usize, usize)> {
+fn search_for_pairs(matrix: &[Vec<(char, bool)>], o_i: usize, o_j: usize) -> Vec<(usize, usize)> {
     let mut pairs: Vec<(usize, usize)> = Vec::new();
     let original_char = matrix[o_i][o_j].0;
-    for i in 0..matrix.len() {
-        for j in 0..matrix[i].len() {
+    for (i, row) in matrix.iter().enumerate() {
+        for (j, element) in row.iter().enumerate() {
             if i == o_i && j == o_j {
                 continue;
             }
 
-            let antenna = matrix[i][j].0;
+            let antenna = element.0;
 
             if antenna == original_char {
                 pairs.push((i, j));
             }
         }
     }
-    return pairs;
+    pairs
 }
 
 #[cfg(test)]
